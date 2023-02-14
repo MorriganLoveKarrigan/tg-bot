@@ -38,28 +38,24 @@ const Form = () => {
         }
     }, [country, street]);
 
-    const onSendData = useCallback(
-        () => {
-           const data = {
-               country,
-               city,
-               street,
-               subject
-           }
+    const onSendData = useCallback(() => {
+            const data = {
+                country,
+                city,
+                street,
+                subject
+            }
             tg?.sendData(JSON.stringify(data))
-        },
-        [country,city,street,subject],
+        }, [country, city, street, subject],
     );
 
-    console.log(tg)
     useEffect(() => {
-        tg?.onEvent('mainButtonClicked',onSendData)
-
+        tg?.onEvent('mainButtonClicked', onSendData)
         return () => {
-            tg?.offEvent('mainButtonClicked',onSendData)
+            tg?.offEvent('mainButtonClicked', onSendData)
         }
 
-    }, []);
+    }, [onSendData]);
 
 
     return (
