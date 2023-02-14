@@ -38,6 +38,24 @@ const Form = () => {
         }
     }, [country, street]);
 
+    const onSendData = () => {
+        const data = {
+            country,
+            city,
+            street,
+            subject
+        }
+        tg.sendData(JSON.stringify(data))
+    }
+    useEffect(() => {
+        tg.WebApp.onEvent('mainButtonClicked',onSendData)
+
+        return () => {
+            tg.WebApp.offEvent('mainButtonClicked',onSendData)
+        }
+
+    }, []);
+
 
     return (
         <div className={'form'}>
